@@ -19,9 +19,10 @@
   },
   "homepage": "https://github.com/the-uncalled-4-uou/socially-aware-santa#readme",
   "dependencies": {
-    "bootstrap": "^4.3.1",
-    "bootstrap-vue": "^2.0.0-rc.18",
     "express": "^4.16.4",
-    "vue": "^2.6.10"
+    "express-session": "^1.16.1",
+    "mongoose": "^5.5.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
   }
 }
