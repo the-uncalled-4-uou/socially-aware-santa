@@ -1,0 +1,24 @@
+{
+  "name": "socially-aware-santa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-uncalled-4-uou/socially-aware-santa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/the-uncalled-4-uou/socially-aware-santa/issues"
+  },
+  "homepage": "https://github.com/the-uncalled-4-uou/socially-aware-santa#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
