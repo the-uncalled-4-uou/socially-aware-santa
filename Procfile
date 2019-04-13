@@ -1,1 +1,3 @@
-release: cd client && npm ci && npm run build
+release: cd client 
+release: npm ci 
+release: npm run build
