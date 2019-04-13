@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/the-uncalled-4-uou/socially-aware-santa#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "vue-material": "^1.0.0-beta-10.2"
   }
 }
