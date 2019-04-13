@@ -1,0 +1,17 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ],
+  "env": {
+  },
+  "formation": {
+  },
+  "name": "socially-aware-santa",
+  "scripts": {
+    "postdeploy": "cd client && npm run build"
+  },
+  "stack": "heroku-18"
+}
