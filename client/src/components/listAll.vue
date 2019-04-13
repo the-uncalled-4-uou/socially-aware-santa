@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
+  <div>
+      <h1>/list-all</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'listAll'
 }
 </script>
 
