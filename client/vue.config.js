@@ -2,5 +2,9 @@ const path = require("path");
 
 module.exports = {
     baseUrl: path.resolve('/'),
-    outputDir: path.resolve(__dirname, "../public/")
+    outputDir: path.resolve(__dirname, "../public/"),
+    devServer: {
+        proxy: 'http://localhost:3000'
+    }
+
 };

@@ -5,6 +5,8 @@ const expressSession = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
+//Initialize Express
+var app = express();
 
 // Session Configuration
 app.use(
@@ -13,7 +15,7 @@ app.use(
         saveUninitialized: true,
         secret:
             process.env.SESSION_SEC || "You must generate a random session secret"
-    })
+    }))
 
 // Connect to Mongodb
 mongoose.Promise = require("bluebird");
@@ -56,7 +58,7 @@ const local = new LocalStrategy((username, password, done) => {
 passport.use("local", local);
 
 // Routes
-app.use("/", require("./routes")(passport));
+//app.use("/", require("./routes")(passport));
 
 app.use(express.static("public"));
 
