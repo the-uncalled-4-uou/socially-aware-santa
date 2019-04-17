@@ -1,73 +1,36 @@
-const express = require("express");
-const router = express.Router();
-const Users = require("./models");
+const db = require('../models')
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-// Authentication Middleware
-const loggedInOnly = (req, res, next) => {
-    if (req.isAuthenticated()) next();
-    else res.redirect("/login");
-};
-
-const loggedOutOnly = (req, res, next) => {
-    if (req.isUnauthenticated()) next();
-    else res.redirect("/");
-};
-
-// Route Handlers
-function authenticate(passport) {
+module.exports = function(app) {
 
 
-    // Login View
-    router.get("/api/login", loggedOutOnly, (req, res) => {
-        res.render("login");
-    });
-
-    // Login Handler
-    router.post(
-        "/api/login",
-        passport.authenticate("local", {
-            successRedirect: "/",
-            failureRedirect: "/login",
-            failureFlash: true
-        })
-    );
-
-    // Register View
-    router.get("/api/register", loggedOutOnly, (req, res) => {
-        res.render("register");
-    });
-
-    // Register Handler
-    router.post("/api/register", (req, res, next) => {
-        const { username, password } = req.body;
-        User.create({ username, password })
-        .then(user => {
-            req.login(user, err => {
-                if (err) next(err);
-                else res.redirect("/");
-            });
-        })
-        .catch(err => {
-            if (err.name === "ValidationError") {
-                req.flash("Sorry, that username is already taken.");
-                res.redirect("/register");
-            } else next(err);
+    app.post("/api/register", function (req, res) {
+        console.log("got here")
+        console.log(req.body)
+        db.Users.create(req.body).then(function (dbExample) {
+            res.json(dbExample);
         });
     });
+    app.post("/api/authenticate", function (req, res) {
+        db.Users.findOne({ username: req.body.username }, function (err, userInfo) {
+            if (err) {
+                next(err);
+            } else {
 
-    // Logout Handler
-    router.all("/api/logout", function(req, res) {
-        req.logout();
-        res.redirect("/api/login");
-    });
+                if (userInfo != null && bcrypt.compareSync(req.body.password, userInfo.password)) {
 
-    // Error Handler
-    router.use((err, req, res) => {
-        console.error(err.stack);
-        res.status(500).end(err.stack);
-    });
+                    const token = jwt.sign({ id: userInfo._id }, req.app.get('secretKey'), { expiresIn: '1h' });
 
-    return router;
+                    res.json({ status: "success", message: "user found!!!", data: { user: userInfo, token: token } });
+
+                } else {
+
+                    res.json({ status: "error", message: "Invalid email/password!!!", data: null });
+
+                }
+            }
+        });
+    })
+
 }
-
-module.exports = authenticate;
