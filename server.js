@@ -28,4 +28,5 @@ require('./routes/apiRoutes')(app)
 app.use(express.static("public"));
 
 // Start Server
-app.listen(3000, "localhost", () => console.log("Up and Running"));
+let port = process.env.port || 3000;
+app.listen(port, "localhost", () => console.log("Up and Running"));
