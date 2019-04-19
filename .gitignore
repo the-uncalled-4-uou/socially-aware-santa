@@ -64,3 +64,15 @@ typings/
 
 public
 
+.vscode
+
+*.suo
+
+*.ntvs*
+
+*.njsproj
+
+*.sln
+
+*.sw?
+
