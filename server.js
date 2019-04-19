@@ -29,4 +29,4 @@ app.use(express.static("public"));
 
 // Start Server
 let port = process.env.PORT || 3000;
-app.listen(port, "localhost", () => console.log("Up and Running"));
+app.listen(port, () => console.log("Up and Running"));
