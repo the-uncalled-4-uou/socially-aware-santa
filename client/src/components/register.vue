@@ -34,8 +34,8 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="success">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="submit" style="background-color: rgba(31, 168, 74, 1);">Submit</b-button>
+      <b-button type="reset" style="background-color: rgba(168, 50, 49, 1);">Reset</b-button>
     </b-form>
     <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
