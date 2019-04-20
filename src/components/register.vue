@@ -39,13 +39,8 @@ import API from "../utils/API"
         // function to add user data to database
         console.log(this.form.name, this.form.password);
 
-        // -------- Validating user doesn't exist --------
-        // API.getUser().then(response =>{
-        //   console.log(response.data);
-        // })
-        // for (var i = 0; i < res.length; i++)
-        // -------------------------------------------------
-
+        // -------- Validating user on backend --------
+        
         API.registerUser({
             username: this.form.name,
             password: this.form.password
