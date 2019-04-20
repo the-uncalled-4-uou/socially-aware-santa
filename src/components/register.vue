@@ -2,12 +2,12 @@
   <div class="container">
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
 
-      <b-form-group id="input-group-2" label="User Name:" label-for="input-2">
+      <b-form-group id="input-group-2" label="Email:" type="email" abel-for="input-2">
         <b-form-input
           id="input-2"
           v-model="form.name"
           required
-          placeholder="User Name"
+          placeholder="Email"
         ></b-form-input>
       </b-form-group>
 
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import API from "../utils/API"
 
   export default {
     // name: 'register',
@@ -46,8 +47,24 @@
       onSubmit(evt) {
         evt.preventDefault()
         alert(JSON.stringify(this.form))
-        // put function to add user data to database
+        // function to add user data to database
+        console.log(this.form.name, this.form.password);
+        API.registerUser({
+          username: this.form.name,
+          password: this.form.password
+        }).then(res => {
+          console.log(res);
+        });
       },
+      // register(userData) {
+      // // put function to add user data to database
+      //   API.registerUser({
+      //     username: this.form.name,
+      //     password: this.form.password
+      //   }).then(res => {
+      //     console.log(res);
+      //   });
+      // },
       onReset(evt) {
         evt.preventDefault()
         // Reset our form values
