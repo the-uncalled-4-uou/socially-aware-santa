@@ -6,7 +6,7 @@ export default {
   // Gets user info
   getUser: function () {
     // should be /api/authenticate?
-    return axios.get("/api/users");
+    return axios.get("/api/authenticate");
   },
   // Gets the lists with the users id
     //   getLists: function (id) {
