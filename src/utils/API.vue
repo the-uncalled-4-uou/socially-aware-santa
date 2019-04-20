@@ -10,11 +10,11 @@ export default {
   },
   // Gets the lists with the users id
     //   getLists: function (id) {
-    //     return axios.get("/api/list?/" + id);
+    //     return axios.get("/api/lists/" + id);
     //   },
   // Deletes the list item with the given id
     //   deleteListItem: function (id) {
-    //     return axios.delete("/api/list?/" + id);
+    //     return axios.delete("/api/lists/" + id);
     //   },
   // Saves a new user to the database
   registerUser: function (userData) {
