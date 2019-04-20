@@ -1,17 +1,30 @@
-const db = require('../models')
+const db = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-module.exports = function(app) {
+module.exports = function (app) {
 
 
     app.post("/api/register", function (req, res) {
-        console.log("got here")
-        console.log(req.body)
-        db.Users.create(req.body).then(function (dbExample) {
-            res.json(dbExample);
-        });
+        db.Users.findOne({ username: req.body.username })
+        .then(function (dbres) {
+            if (dbres) {
+                res.json({ "message": "User Already Exists" });
+            } else {
+                db.Users.create(req.body)
+                .then(function (dbExample) {
+                    res.json(dbExample);
+                })
+                .catch(function (err) {
+                    console.log(err)
+                })
+            }
+        })
+        .catch(function (err) {
+            console.log(err)
+        })
     });
+
     app.post("/api/authenticate", function (req, res) {
         db.Users.findOne({ username: req.body.username }, function (err, userInfo) {
             if (err) {
@@ -31,6 +44,6 @@ module.exports = function(app) {
                 }
             }
         });
-    })
+    });
 
-}
+};
