@@ -2,10 +2,11 @@
   <div class="container">
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
 
-      <b-form-group id="input-group-2" label="Email:" type="email" abel-for="input-2">
+      <b-form-group id="input-group-2" label="Email:" abel-for="input-2">
         <b-form-input
           id="input-2"
           v-model="form.name"
+          type="email"
           required
           placeholder="Email"
         ></b-form-input>
