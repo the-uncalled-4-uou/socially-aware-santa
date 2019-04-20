@@ -47,7 +47,7 @@ import API from "../utils/API"
     methods: {
       onSubmit(evt) {
         evt.preventDefault()
-        alert(JSON.stringify(this.form))
+        // alert(JSON.stringify(this.form))
         // function to add user data to database
         console.log(this.form.name, this.form.password);
         API.registerUser({
@@ -57,15 +57,6 @@ import API from "../utils/API"
           console.log(res);
         });
       },
-      // register(userData) {
-      // // put function to add user data to database
-      //   API.registerUser({
-      //     username: this.form.name,
-      //     password: this.form.password
-      //   }).then(res => {
-      //     console.log(res);
-      //   });
-      // },
       onReset(evt) {
         evt.preventDefault()
         // Reset our form values
