@@ -19,5 +19,17 @@ module.exports = function(app) {
         });
     });
 
+    app.post("/api/lists", function (req, res) {
+        db.Users.create(req.body)
+        .then(function(dbuser) {
+            res.json(dbuser);
+
+        })
+        .catch(function(err) {
+            res.json(err)
+        })
+
+    })
+
 
 }
