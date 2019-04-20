@@ -25,7 +25,7 @@ require('./routes/authRoutes')(app)
 require('./routes/apiRoutes')(app)
 
 
-app.use(express.static("public"));
+app.use(express.static("dist"));
 
 // Start Server
 let port = process.env.PORT || 3000;
