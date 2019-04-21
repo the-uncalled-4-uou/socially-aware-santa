@@ -29,7 +29,19 @@ module.exports = function(app) {
             res.json(err)
         })
 
-    })
+    });
 
-
-}
+    app.post("/api/lists", function (req, res) {
+        jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function (err, decoded) {
+            if (err) {
+                res.json({ status: "error", message: err.message, data: null });
+            }
+            else {
+                db.Users.findOneAndUpdate({_id: decoded.id}, {$push: {lists: {listname: req.body.listname}}})
+                .then(function (dbresult) {
+                    res.json(dbresult)
+                })
+            }
+        });
+    });
+};
