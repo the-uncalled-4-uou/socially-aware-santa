@@ -2,7 +2,7 @@
       <div class="login-page vertical-center" id="login-page">
           <h1 class="title" v-if="animateForm" :class="{animated: animateForm, fadeIn: animateForm}">Socially Aware Santa</h1>
           <div class="mx-auto col-xl-5 col-lg-7 col-md-9 col-sm-12 present-container vertical-center">
-              <router-link to="/register" class="register-link">Register</router-link>
+              <router-link to="/register" class="register-link" v-if="animateForm" :class="{animated: animateForm, fadeIn: animateForm}">Register</router-link>
               <div class="login-form">
                   <b-form v-if="animateForm" @submit.prevent="onSubmit" :class="{animated: animateForm, fadeIn: animateForm}">
                       <b-form-group id="input-group-email" class="col-6 mx-auto" label="Email:" label-for="email">
