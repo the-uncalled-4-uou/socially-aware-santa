@@ -83,7 +83,7 @@ module.exports = function(app) {
             .then(function(dbresult) {
               let lists = dbresult.lists;
               for (let i = 0; i < lists.length; i++) {
-                if (lists[i]._id === req.params.id) {
+                if (lists[i]._id === deleteList) {
                   lists.splice(i);
                   db.Users.findOneAndUpdate(
                     { _id: decoded.id },
