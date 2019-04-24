@@ -9,7 +9,7 @@ module.exports = function (app) {
         console.log("got here");
         jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function (err, decoded) {
             if (err) {
-                res.json({ status: "error", message: err.message, data: null });
+                res.json({ status: "error", errors: err.message, data: null });
             } else {
 
                 // add user id to request
