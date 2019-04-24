@@ -16,13 +16,13 @@ module.exports = function (app) {
                     res.json(dbExample);
                 })
                 .catch(function (err) {
-                    console.log(err)
-                })
+                    console.log(err);
+                });
             }
         })
         .catch(function (err) {
-            console.log(err)
-        })
+            console.log(err);
+        });
     });
 
     app.post("/api/authenticate", function (req, res) {
