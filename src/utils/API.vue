@@ -19,6 +19,13 @@ export default {
   // Saves a new user to the database
   registerUser: function (userData) {
     return axios.post("/api/register", userData);
+  },
+  getUserLists: function (jwt) {
+      return axios({
+          method: 'get',
+          url: '/api/lists',
+          headers: {'x-access-token': jwt}
+      });
   }
 };
 </script>
