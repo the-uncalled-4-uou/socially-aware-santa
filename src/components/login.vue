@@ -75,6 +75,7 @@
                 this.errors = '';
                 auth.login(this.form)
                     .then((response) => {
+                        console.log(response);
                         if(response.data.errors) {
                             this.errors = response.data.errors;
                         }

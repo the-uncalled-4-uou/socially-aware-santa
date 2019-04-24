@@ -43,7 +43,8 @@ module.exports = function (app) {
           res.json({
             status: "success",
             message: "user found!!!",
-            data: { user: userInfo, token: token }
+            user: userInfo,
+            token: token
           });
         } else {
           res.json({

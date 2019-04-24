@@ -1,11 +1,11 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="listItems">
     <b-card
       class="mt-3"
-      v-for="listitem in this.resdata"
-      :key="this.resdata.indexOf(listitem)"
+      v-for="listitem in this.listItems"
+      :key="this.listItems.indexOf(listitem)"
     >List Name: {{ listitem.listname }}</b-card>
-    <b-form @submit="onSubmit" v-if="show">
+    <b-form @submit.prevent="onSubmit" v-if="show">
       <b-form-input
         id="input-1"
         v-model="form.listName"
@@ -25,7 +25,7 @@ export default {
   name: "listAll",
   data() {
     return {
-      resdata: "",
+      listItems: [],
       form: {
         listName: ""
       },
@@ -34,22 +34,18 @@ export default {
   },
   created() {
     API.getUserLists(localStorage.getItem("jwt")).then(res => {
-      this.resdata = res.data.lists;
+      this.listItems = res.data.lists;
     //   console.log(res);
     });
   },
   methods: {
-        onSubmit(evt) {
-        evt.preventDefault()
-        console.log(JSON.stringify(this.form))
-            API.addUserList(localStorage.getItem("jwt"), {
-                listname: this.form.listName,
-            }).then(res => {
-                console.log(res);
-            // link to user page to display listall
-            this.$router.push("/list-all");
-            });
-        },
+      onSubmit() {
+          API.addUserList(localStorage.getItem("jwt"), {
+              listname: this.form.listName,
+          }).then(res => {
+              this.listItems.push(this.form.listName);
+          });
+      },
   }
 };
 </script>
