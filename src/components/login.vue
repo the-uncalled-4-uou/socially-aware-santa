@@ -5,8 +5,9 @@
               <router-link to="/register" class="register-link" v-if="animateForm" :class="{animated: animateForm, fadeIn: animateForm}">Register</router-link>
               <div class="login-form">
                   <b-form v-if="animateForm" @submit.prevent="onSubmit" :class="{animated: animateForm, fadeIn: animateForm}">
+                      <errors :errors="errors"></errors>
                       <b-form-group id="input-group-email" class="col-6 mx-auto" label="Email:" label-for="email">
-                          <b-form-input id="email" v-model="form.email" type="email" required></b-form-input>
+                          <b-form-input id="email" v-model="form.username" type="email" required></b-form-input>
                       </b-form-group>
                       <b-form-group id="input-group-password" class="col-6 mx-auto" label="Password:" label-for="password">
                           <b-form-input id="password" type="password" v-model="form.password" required></b-form-input>
@@ -27,14 +28,21 @@
 
     import 'animate.css'
     import 'particles.js'
+    import auth from '../utils/API.js'
+    import Errors from "./errors";
 
     export default {
         name: 'login',
+        components: {Errors},
         data() {
             return {
                 animatePresent: false,
                 animateForm: false,
-                form: {}
+                form: {
+                    username: '',
+                    password: ''
+                },
+                errors: []
             }
         },
         created() {
@@ -49,14 +57,22 @@
             setTimeout(() => {
                 this.animateForm = true;
             }, 2000);
+        },
+        methods: {
+            onSubmit() {
+                auth.login(this.form)
+                    .then((response) => {
+                        if(response.data.errors) {
+                            this.errors = response.data.errors;
+                        }
+                    });
+            }
         }
     }
 
 </script>
 
 <style>
-
-    @import url('https://fonts.googleapis.com/css?family=Noto+Sans|Pacifico');
 
     label {
         color: white;

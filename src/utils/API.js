@@ -1,12 +1,11 @@
-<script>
+
 import axios from "axios";
 
 export default {
 
   // Gets user info
-  getUser: function () {
-    // should be /api/authenticate?
-    return axios.get("/api/authenticate");
+  login(data) {
+      return axios.post("/api/authenticate", data);
   },
   // Gets the lists with the users id
     //   getLists: function (id) {
@@ -17,8 +16,7 @@ export default {
     //     return axios.delete("/api/lists/" + id);
     //   },
   // Saves a new user to the database
-  registerUser: function (userData) {
-    return axios.post("/api/register", userData);
+  registerUser(userData) {
+      return axios.post("/api/register", userData);
   }
-};
-</script>
+}
