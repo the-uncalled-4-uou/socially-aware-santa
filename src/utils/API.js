@@ -17,6 +17,13 @@ export default {
           url: '/api/lists',
           headers: {'x-access-token': jwt}
       });
+  },
+  addUserList(jwt, data) {
+    return axios({
+      method: 'post',
+      url: '/api/lists',
+      headers: {'x-access-token': jwt},
+      data: data
+    })
   }
-
 };
