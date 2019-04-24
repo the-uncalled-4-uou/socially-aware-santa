@@ -5,12 +5,15 @@ const saltRounds = 10;
 //Define a schema
 const Schema = mongoose.Schema;
 
-const RuleSchema = new Schema({
-    rulename: {
+const GiveSchema = new Schema({
+    nameid: {
         type: String,
-        trim:true
-    },
-    rule: {
+        trim: true
+    }
+})
+
+const RecieveSchema = new Schema({
+    nameid: {
         type: String,
         trim: true
     }
@@ -20,7 +23,10 @@ const NameSchema = new Schema({
     personname: {
         type: String,
         trim: true
-    }
+    },
+    giverules: [GiveSchema],
+    receiverules: [RecieveSchema],
+
 })
 
 const ListsSchema = new Schema({
@@ -28,8 +34,7 @@ const ListsSchema = new Schema({
         type: String,
         trim: true
     },
-    names: [NameSchema],
-    rules: [RuleSchema]
+    names: [NameSchema]
 })
 
 const UserSchema = new Schema({

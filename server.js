@@ -1,9 +1,6 @@
 // Import Dependencies
 const express = require("express");
 const mongoose = require("mongoose");
-const authroutes = require("./routes/authRoutes");
-const apiroutes = require("./routes/apiRoutes");
-const db = require("./models");
 
 //Initialize Express
 var app = express();
@@ -20,7 +17,10 @@ mongoose.connect("mongodb://localhost/socially-aware-santa", {
 });
 
 require("./routes/authRoutes")(app);
-require("./routes/apiRoutes")(app);
+require("./routes/userRoutes")(app);
+require("./routes/listRoutes")(app);
+require("./routes/nameRoutes")(app);
+require("./routes/ruleRoutes")(app);
 
 app.use(express.static("dist"));
 
