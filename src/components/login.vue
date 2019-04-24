@@ -42,7 +42,7 @@
                     username: '',
                     password: ''
                 },
-                errors: []
+                errors: ''
             }
         },
         created() {
@@ -60,13 +60,15 @@
         },
         methods: {
             onSubmit() {
+                this.errors = '';
                 auth.login(this.form)
                     .then((response) => {
                         if(response.data.errors) {
                             this.errors = response.data.errors;
                         }
                         else {
-                            //response.data.token
+                            localStorage.setItem('jwt', response.data.data.token);
+                            this.$router.push('/list-all');
                         }
                     });
             }

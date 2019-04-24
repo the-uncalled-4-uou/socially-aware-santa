@@ -12,12 +12,6 @@
         name: "error",
         props: {
             'errors': [String, Array]
-        },
-        watch: {
-            errors() {
-                console.log(this.errors);
-                console.log(Array.isArray(this.errors));
-            }
         }
     }
 </script>

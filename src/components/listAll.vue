@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <b-card class="mt-3" v-for="listitem in this.resdata">List Name: {{ listitem.listname }}</b-card>
+        <b-card class="mt-3" v-for="listitem in this.resdata" :key="this.resdata.indexOf(listitem)">List Name: {{ listitem.listname }}</b-card>
     </div>
 </template>
 
