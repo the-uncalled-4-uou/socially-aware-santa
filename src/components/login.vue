@@ -1,5 +1,5 @@
 <template>
-      <div class="login-page vertical-center" id="login-page">
+      <div v-if="!redirect" class="login-page vertical-center" id="login-page">
           <h1 class="title" v-if="animateForm" :class="{animated: animateForm, fadeIn: animateForm}">Socially Aware Santa</h1>
           <div class="mx-auto col-xl-5 col-lg-7 col-md-9 col-sm-12 present-container vertical-center">
               <router-link to="/register" class="register-link" v-if="animateForm" :class="{animated: animateForm, fadeIn: animateForm}">Register</router-link>
@@ -42,21 +42,33 @@
                     username: '',
                     password: ''
                 },
-                errors: ''
+                errors: '',
+                redirect: true
             }
         },
         created() {
 
-            //this has an optional callback if anyone wants to use it
-            particlesJS.load('login-page', '../assets/particles.json');
+            auth.getUser(localStorage.getItem('jwt')).then(res => {
 
-            setTimeout(() => {
-                this.animatePresent = true;
-            }, 500);
+                if(res.data.userid && !res.data.errors) {
+                    this.$router.push('/list-all');
+                }
+                else {
 
-            setTimeout(() => {
-                this.animateForm = true;
-            }, 2000);
+                    this.redirect = false;
+                    //this has an optional callback if anyone wants to use it
+                    particlesJS.load('login-page', '../assets/particles.json');
+
+                    setTimeout(() => {
+                        this.animatePresent = true;
+                    }, 500);
+
+                    setTimeout(() => {
+                        this.animateForm = true;
+                    }, 2000);
+                }
+
+            });
         },
         methods: {
             onSubmit() {
@@ -67,7 +79,7 @@
                             this.errors = response.data.errors;
                         }
                         else {
-                            localStorage.setItem('jwt', response.data.data.token);
+                            localStorage.setItem('jwt', response.data.token);
                             this.$router.push('/list-all');
                         }
                     });

@@ -55,6 +55,21 @@ module.exports = function(app) {
     );
   });
 
+    app.get("/api/users", function (req, res) {
+        console.log("got here");
+        jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function (err, decoded) {
+            if (err) {
+                res.json({ status: "error", errors: err.message, data: null });
+            } else {
+
+                // add user id to request
+                req.body.userId = decoded.id;
+                res.json({ userid: req.body.userId });
+            }
+        });
+    });
+
+
   // Delete route for deleting a list from the main page
   app.delete("/api/lists/:id", function(req, res) {
     let deleteList = req.params.id;
@@ -75,6 +90,7 @@ module.exports = function(app) {
       }
     );
   });
+
 
   // Get route for getting data for specific list
     app.get("/api/lists/:id", function (req, res) {
