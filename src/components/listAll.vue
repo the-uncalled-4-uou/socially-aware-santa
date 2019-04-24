@@ -43,7 +43,7 @@ export default {
         evt.preventDefault()
         console.log(JSON.stringify(this.form))
             API.addUserList({
-                listName: this.form.listName,
+                listname: this.form.listName,
             }).then(res => {
                 console.log(res);
             // link to user page to display listall
