@@ -35,14 +35,14 @@ export default {
   created() {
     API.getUserLists(localStorage.getItem("jwt")).then(res => {
       this.resdata = res.data.lists;
-      console.log(res);
+    //   console.log(res);
     });
   },
   methods: {
         onSubmit(evt) {
         evt.preventDefault()
         console.log(JSON.stringify(this.form))
-            API.addUserList({
+            API.addUserList(localStorage.getItem("jwt"), {
                 listname: this.form.listName,
             }).then(res => {
                 console.log(res);
