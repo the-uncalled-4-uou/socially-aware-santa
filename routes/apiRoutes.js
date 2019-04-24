@@ -56,4 +56,17 @@ module.exports = function (app) {
             }
         });
     });
+
+    app.get("/api/lists/:id", function (req, res) {
+        jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function (err, decoded) {
+            if (err) {
+                res.json({ status: "error", message: err.message, data: null });
+            } else {
+                db.Users.findById(decoded.id).then(function (dbres) {
+                    doc = dbres.lists.id(req.params.id);
+                    res.json(doc)
+                });
+            }
+        });
+    });
 };

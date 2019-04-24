@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 
 module.exports = function (app) {
 
-
     app.post("/api/register", function (req, res) {
         db.Users.findOne({ username: req.body.username })
         .then(function (dbres) {
