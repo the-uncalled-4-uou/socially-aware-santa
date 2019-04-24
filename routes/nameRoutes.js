@@ -32,7 +32,7 @@ module.exports = function (app) {
                 } else {
                     db.Users.findOneAndUpdate(
                         { _id: decoded.id, "lists._id": req.params.listid},
-                        { $push: { "lists.$.names": { "personname": "test" } }}
+                        { $push: { "lists.$.names": { "personname": req.body.personname } }}
                     ).then(function (dbresult) {
                         res.json(dbresult);
                     });
