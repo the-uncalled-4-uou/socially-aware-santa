@@ -22,8 +22,8 @@ mongoose.connect("mongodb://localhost/socially-aware-santa", {
 require("./routes/authRoutes")(app);
 require("./routes/apiRoutes")(app);
 
-app.use(express.static("public"));
+app.use(express.static("dist"));
 
 // Start Server
 let port = process.env.PORT || 3000;
-app.listen(port, () => console.log("Up and Running"));
+app.listen(port, () => console.log("Server listening on port: " + port));

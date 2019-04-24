@@ -15,7 +15,7 @@ Vue.config.productionTip = false
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/login', component: Login },
+  { path: '/', component: Login },
   { path: '/register', component: Register },
   { path: '/list-all', component: ListAll },
   { path: '/list-one', component: ListOne}

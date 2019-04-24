@@ -37,7 +37,6 @@ import API from "../utils/API"
         evt.preventDefault()
         // alert(JSON.stringify(this.form))
         // function to add user data to database
-        console.log(this.form.name, this.form.password);
 
         // -------- Validating user doesn't exist --------
         // API.getUser().then(response =>{
@@ -50,7 +49,6 @@ import API from "../utils/API"
             username: this.form.name,
             password: this.form.password
           }).then(res => {
-            console.log(res);
           // link to user page to display listall
           this.$router.push("/list-all");
         });
