@@ -39,7 +39,7 @@ module.exports = function (app) {
 
                 } else {
 
-                    res.json({ status: "error", message: "Invalid email/password!!!", data: null });
+                    res.json({ status: "error", errors: "Invalid email/password!", data: null });
 
                 }
             }
