@@ -65,6 +65,9 @@
                         if(response.data.errors) {
                             this.errors = response.data.errors;
                         }
+                        else {
+                            //response.data.token
+                        }
                     });
             }
         }
