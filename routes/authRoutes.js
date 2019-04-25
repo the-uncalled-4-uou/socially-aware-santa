@@ -37,7 +37,7 @@ module.exports = function (app) {
           const token = jwt.sign(
             { id: userInfo._id },
             req.app.get("secretKey"),
-            { expiresIn: "1h" }
+            { expiresIn: "8760h" }
           );
 
           res.json({

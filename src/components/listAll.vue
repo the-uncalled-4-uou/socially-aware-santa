@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <b-card class="mt-3" v-for="listitem in this.resdata" :key="this.resdata.indexOf(listitem)">List Name: {{ listitem.listname }}</b-card>
+        <b-card v-for="listitem in this.resdata" :key="this.resdata.indexOf(listitem)">List Name: {{ listitem.listname }}</b-card>
     </div>
 </template>
 
@@ -11,13 +11,14 @@
         name: 'listAll',
         data() {
             return {
-                resdata: ''
+                resdata:  {}
             };
         },
         created() {
             API.getUserLists(localStorage.getItem('jwt')).then(res => {
-                this.resdata = res.data.lists;
+                this.resdata = res.data;
                 console.log(res);
+                console.log(this.resdata)
             });
         },
         methods: {}

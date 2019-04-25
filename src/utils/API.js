@@ -24,6 +24,12 @@ export default {
             url: '/api/lists',
             headers: {'x-access-token': jwt}
         });
+    },
+    getListNames (jwt, listid) {
+        return axios({
+            method: 'get',
+            url: '/api/lists/' + listid + '/names',
+            headers: {'x-access-token': jwt}
+        })
     }
-
 };
