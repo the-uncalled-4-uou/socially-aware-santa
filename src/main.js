@@ -17,8 +17,8 @@ Vue.use(VueRouter);
 const routes = [
   { path: '/', component: Login },
   { path: '/register', component: Register },
-  { path: '/list-all', component: ListAll },
-  { path: '/list-one', component: ListOne}
+  { path: '/list-all', name: 'listall', component: ListAll, props: true },
+  { path: '/list-one', name: 'listone', component: ListOne, props: true }
 ];
 
 const router = new VueRouter({
