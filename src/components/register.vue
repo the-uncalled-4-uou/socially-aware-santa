@@ -1,12 +1,13 @@
 <template>
   <div class="container">
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+      <errors :errors="errors"></errors>
       <b-form-group id="input-group-2" label="Email:" abel-for="input-2">
         <b-form-input id="input-2" v-model="form.name" type="email" required placeholder="Email"></b-form-input>
       </b-form-group>
 
       <b-form-group id="input-group-3" label="Password:" label-for="input-3">
-        <b-form-input id="input-3" v-model="form.password" required placeholder="Passwor"></b-form-input>
+        <b-form-input id="input-3" v-model="form.password" required placeholder="Passwor" type="password"></b-form-input>
       </b-form-group>
 
       <b-button type="submit" style="background-color: rgba(31, 168, 74, 1);">Submit</b-button>
@@ -20,8 +21,10 @@
 
 <script>
 import API from "../utils/API"
+import Errors from "./errors";
 
   export default {
+    components: {Errors},
     // name: 'register',
     data() {
       return {
@@ -29,7 +32,8 @@ import API from "../utils/API"
           name: '',
           password: ''
         },
-        show: true
+        show: true,
+        errors: ''
       }
     },
     methods: {
@@ -49,8 +53,13 @@ import API from "../utils/API"
             username: this.form.name,
             password: this.form.password
           }).then(res => {
-          // link to user page to display listall
-          this.$router.push("/list-all");
+            if(!res.data.errors) {
+              // link to user page to display listall
+              this.$router.push("/list-all");
+            }
+            else {
+              this.errors = res.data.errors;
+            }
         });
       },
       onReset(evt) {

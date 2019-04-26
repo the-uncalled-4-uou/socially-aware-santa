@@ -89,9 +89,11 @@ module.exports = function (app) {
                 } else {
                     db.Users.findOneAndUpdate(
                         { _id: decoded.id, "lists._id": req.params.listid, "lists.0.names._id": req.params.nameid},
-                        { $push: { "lists.0.names.0.receiverules": { "nameid": req.body.nameid } }}, { multi: true }
+                        { $push: { "lists.0.names.0.receiverules": { "nameid": req.body.nameid } }}, { multi: true, new: true }
                     ).then(function (dbresult) {
-                        res.json(dbresult);
+                        console.log(dbresult)
+                        test = dbresult.lists.id(req.params.listid).names.id(req.params.nameid).receiverules
+                        res.json(test);
                     });
                 }
             }

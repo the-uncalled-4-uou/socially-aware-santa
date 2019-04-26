@@ -28,7 +28,7 @@
 
     import 'animate.css'
     import 'particles.js'
-    import auth from '../utils/API.js'
+    import API from '../utils/API.js'
     import Errors from "./errors";
 
     export default {
@@ -48,7 +48,7 @@
         },
         created() {
 
-            auth.getUser(localStorage.getItem('jwt')).then(res => {
+            API.getUser(localStorage.getItem('jwt')).then(res => {
 
                 if(res.data.userid && !res.data.errors) {
                     this.$router.push('/list-all');
@@ -73,12 +73,13 @@
         methods: {
             onSubmit() {
                 this.errors = '';
-                auth.login(this.form)
+                API.login(this.form)
                     .then((response) => {
+                        console.log(response);
                         if(response.data.errors) {
                             this.errors = response.data.errors;
                         }
-                        else {
+                        else if(response.data.token) {
                             localStorage.setItem('jwt', response.data.token);
                             this.$router.push('/list-all');
                         }

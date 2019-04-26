@@ -9,11 +9,20 @@ module.exports = function (app) {
         db.Users.findOne({ username: req.body.username })
         .then(function (dbres) {
             if (dbres) {
-                res.json({ "message": "User Already Exists" });
+                res.json({ "errors": "User Already Exists" });
             } else {
                 db.Users.create(req.body)
                 .then(function (dbExample) {
-                    res.json(dbExample);
+                    const token = jwt.sign(
+                        { id: dbExample._id },
+                        req.app.get("secretKey"),
+                        { expiresIn: "8760h" }
+                    );
+
+                    res.json({
+                        token: token
+                    });
+                    console.log(dbExample)
                 })
                 .catch(function (err) {
                     console.log(err);
@@ -37,18 +46,19 @@ module.exports = function (app) {
           const token = jwt.sign(
             { id: userInfo._id },
             req.app.get("secretKey"),
-            { expiresIn: "1h" }
+            { expiresIn: "8760h" }
           );
 
           res.json({
             status: "success",
             message: "user found!!!",
-            data: { user: userInfo, token: token }
+            user: userInfo,
+            token: token
           });
         } else {
           res.json({
             status: "error",
-            message: "Invalid email/password!!!",
+            errors: "Invalid email/password!!!",
             data: null
           });
         }
