@@ -47,18 +47,19 @@ export default {
             headers: {'x-access-token': jwt},
         })
     },
-    addNameToList(jwt, listid) {
+    addNameToList(jwt, listid, name) {
         return axios({
             method: 'post' ,
-            url: 'api/lists/' + listid + '/names'
+            url: 'api/lists/' + listid + '/names',
+            headers: {'x-access-token': jwt},
+            data: {"personname": name}
         })
     },
-    addUserList(jwt, data) {
+    removeNameFromList(jwt, listid, nameid) {
         return axios({
-            method: 'post',
-            url: '/api/lists',
+            method: 'delete' ,
+            url: 'api/lists/' + listid + '/names/' + nameid,
             headers: {'x-access-token': jwt},
-            data: data
         })
     }
 
