@@ -9,7 +9,7 @@ module.exports = function (app) {
         db.Users.findOne({ username: req.body.username })
         .then(function (dbres) {
             if (dbres) {
-                res.json({ "message": "User Already Exists" });
+                res.json({ "errors": "User Already Exists" });
             } else {
                 db.Users.create(req.body)
                 .then(function (dbExample) {
@@ -43,12 +43,13 @@ module.exports = function (app) {
           res.json({
             status: "success",
             message: "user found!!!",
-            data: { user: userInfo, token: token }
+            user: userInfo,
+            token: token
           });
         } else {
           res.json({
             status: "error",
-            message: "Invalid email/password!!!",
+            errors: "Invalid email/password!!!",
             data: null
           });
         }

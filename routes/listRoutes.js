@@ -10,7 +10,7 @@ module.exports = function (app) {
             req.app.get("secretKey"),
             function (err, decoded) {
                 if (err) {
-                    res.json({ status: "error", message: err.message, data: null });
+                    res.json({ status: "error", errors: err.message });
                 } else {
                     db.Users.findOne({ _id: decoded.id }).then(function (dbresult) {
                         res.json(dbresult.lists);
@@ -27,13 +27,15 @@ module.exports = function (app) {
             req.app.get("secretKey"),
             function (err, decoded) {
                 if (err) {
-                    res.json({ status: "error", message: err.message, data: null });
+                    res.json({ status: "error", errors: err.message });
                 } else {
                     db.Users.findOneAndUpdate(
                         { _id: decoded.id },
-                        { $push: { lists: { listname: req.body.listname } } }
+                        { $push: { lists: { listname: req.body.listname } } },
+                        {new: true}
                     ).then(function (dbresult) {
-                        res.json(dbresult);
+                        let newest = dbresult.lists[dbresult.lists.length - 1];
+                        res.json(newest);
                     });
                 }
             }
