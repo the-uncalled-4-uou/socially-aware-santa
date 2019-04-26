@@ -145,7 +145,7 @@
         height: 41px !important;
         border-radius: 25px !important;
         margin-left: .5%;
-        margin-top: 0 !important;
+        margin-top: 3 !important;
     }
     .delete-btn {
         border-radius: 20px !important;
