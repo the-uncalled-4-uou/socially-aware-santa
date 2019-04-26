@@ -13,7 +13,16 @@ module.exports = function (app) {
             } else {
                 db.Users.create(req.body)
                 .then(function (dbExample) {
-                    res.json(dbExample);
+                    const token = jwt.sign(
+                        { id: dbExample._id },
+                        req.app.get("secretKey"),
+                        { expiresIn: "8760h" }
+                    );
+
+                    res.json({
+                        token: token
+                    });
+                    console.log(dbExample)
                 })
                 .catch(function (err) {
                     console.log(err);

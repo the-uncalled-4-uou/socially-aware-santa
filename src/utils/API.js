@@ -50,7 +50,7 @@ export default {
     addNameToList(jwt, listid) {
         return axios({
             method: 'post' ,
-            url: 'api/lists/' + listid + /names
+            url: 'api/lists/' + listid + '/names'
         })
     },
     addUserList(jwt, data) {
