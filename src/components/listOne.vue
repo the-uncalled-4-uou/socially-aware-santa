@@ -61,7 +61,7 @@
         data() {
             return {
                 resdata: '',
-                fulllist:'',
+                fulllist: '',
                 inputdata: '',
                 giveruledata: '',
                 recieveruledata: '',
@@ -72,11 +72,11 @@
             console.log(this.listpage);
             API.getListNames(localStorage.getItem('jwt'), this.listpage).then(res => {
                 this.resdata = res.data;
-                console.log(this.resdata)
+                console.log(this.resdata);
             });
             API.getList(localStorage.getItem('jwt'), this.listpage).then(res => {
-                this.fulllist = res.data
-            })
+                this.fulllist = res.data;
+            });
         },
         methods: {
             createNewName(listname) {
@@ -132,27 +132,65 @@
                 }
                 return a;
             },
-            calculateList() {
-                let leftlist = [];
-                let rightlist = [];
-                let finallist = [];
-                for (let i = 0; i < this.resdata.length; i++) {
-                    leftlist.push(this.resdata[i]._id)
-                    rightlist.push(this.resdata[i]._id)
+            checkmatch() {
+                let left = []
+                let right = []
+                let matches = []
+                let namelength = this.resdata.length
+                for (var i = 0; i < this.resdata.length; i++) {
+                    left.push(this.resdata[i]._id);
+                    right.push(this.resdata[i]._id);
                 }
-                this.shuffle(rightlist)
-
-                for (let i = 0; i < leftlist.length; i++) {
-                    let currentindex = this.resdata.findIndex(x =>x._id === leftlist[i])
-                    let giverulearray = this.resdata[currentindex].giverules
-                    if (this.resdata[currentindex].giverules.length !== 0) {
-
+                this.shuffle(left)
+                this.shuffle(right)
+                let loopdone = false
+                while(!loopdone) {
+                    console.log("asdf")
+                    if (this.matchcheck(left[0],right[0])) {
+                        matches.push({ from: left[0], to: right[0] })
+                        left.splice(0, 1);
+                        right.splice(0, 1);
+                        if (matches.length === namelength) {
+                            loopdone = true
+                            break;
+                        }
+                    }
+                    else {
+                        this.shuffle(left)
+                        this.shuffle(right)
+                        if (matches.length === namelength) {
+                            loopdone = true
+                            break;
+                        }
+                    }
+                    if (matches.length === namelength) {
+                        loopdone = true
+                        break;
                     }
                 }
+                console.log(matches)
 
-                console.log(leftlist)
-                console.log(rightlist)
-                console.log(finallist)
+            },
+            matchcheck(id1, id2) {
+                var indexofid1 = this.resdata.findIndex(i => i._id === id1);
+                var indexofid2 = this.resdata.findIndex(i => i._id === id2);
+                var findindex = this.resdata[indexofid1].giverules.findIndex(i => i.nameid === id2);
+                var findindex4 = this.resdata[indexofid2].receiverules.findIndex(i => i.nameid === id1);
+                if(id1 === id2) {
+                    return false
+                }
+                else if (findindex > -1) {
+                    return false
+                }
+                else if (findindex4 > -1) {
+                    return false
+                }
+                else {
+                    return true
+                }
+            },
+            calculateList() {
+                this.checkmatch()
             }
         }
     };
