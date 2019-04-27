@@ -273,12 +273,6 @@
         border: none !important;
         color: #F25C5C !important;
     }
-    .log-btn:hover {
-        height: 41px !important;
-        border-radius: 25px !important;
-        margin-left: .5%;
-        margin-top: 0 !important;
-    }
     .submit-btn {
         margin-top: 1%;
         margin-right: 1%;
@@ -287,22 +281,10 @@
         border: none !important;
         color: #F25C5C !important;
     }
-    .submit-btn:hover {
-        height: 41px !important;
-        border-radius: 25px !important;
-        margin-left: .5%;
-        margin-top: 3 !important;
-    }
     .delete-btn {
         border-radius: 20px !important;
         background-color: white !important;
         border: none !important;
         color: #F25C5C !important;
-    }
-    .delete-btn:hover {
-        height: 41px !important;
-        border-radius: 25px !important;
-        margin-left: 1.5%;
-        margin-top: 0 !important;
     }
 </style>

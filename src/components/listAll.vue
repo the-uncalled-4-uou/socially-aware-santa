@@ -2,9 +2,11 @@
     <div class="list-page">
         <div>
             <div class="table">
-                <b-card class="text-center list-names" v-for="listitem in this.resdata" :key="listitem.listname">
-                    <div @click="onListClick(listitem._id)">{{ listitem.listname }}</div>
-                    <b-button class="float-right delete-btn" @click="deleteList(listitem._id)">✗ Delete</b-button></b-card>
+                <div class="text-center list-names vertical-center float-none card" v-for="listitem in this.resdata" :key="listitem.listname">
+                    <div class="card-body col-12">
+                        <div @click="onListClick(listitem._id)">{{ listitem.listname }} <b-button class="float-right delete-btn" @click="deleteList(listitem._id)">✗ Delete</b-button></div>
+                    </div>
+                </div>
                 <b-form-input v-model="inputdata" id="input-large" size="lg" placeholder="Create a New List"></b-form-input>
                 <b-button class="float-right submit-btn" @click="createNewList(inputdata)">Submit</b-button>
             </div>
@@ -97,7 +99,6 @@
     }
     .list-names {
         font-size: 25px;
-        vertical-align: middle;
     }
     .list-page {
         z-index: 1;
@@ -125,12 +126,6 @@
         border: none !important;
         color: #F25C5C !important;
     }
-    .log-btn:hover {
-        height: 41px !important;
-        border-radius: 25px !important;
-        margin-left: .5%;
-        margin-top: 0 !important;
-    }
     .submit-btn {
         margin-top: 1%;
         margin-right: 1%;
@@ -139,23 +134,21 @@
         border: none !important;
         color: #F25C5C !important;
     }
-    .submit-btn:hover {
-        height: 41px !important;
-        border-radius: 25px !important;
-        margin-left: .5%;
-        margin-top: 3 !important;
-    }
     .delete-btn {
         border-radius: 20px !important;
         background-color: white !important;
         border: none !important;
         color: #F25C5C !important;
     }
-    .delete-btn:hover {
-        height: 41px !important;
-        border-radius: 25px !important;
-        margin-left: 1.5%;
-        margin-top: 0 !important;
+    .vertical-center {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
     }
 
 </style>
