@@ -65,9 +65,10 @@
           username: this.form.username,
           password: this.form.password
         }).then(res => {
-          if(!res.data.errors) {
+          if(!res.data.errors && res.data.token) {
             // link to user page to display listall
-            this.$router.push("/list-all");
+            localStorage.setItem('jwt', res.data.token);
+            this.$router.push('/list-all');
           }
           else {
             this.errors = res.data.errors;

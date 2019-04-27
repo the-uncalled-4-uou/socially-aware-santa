@@ -1,7 +1,5 @@
 <template>
     <div class="list-page">
-
-        <h1 class="title">Socially Aware Santa</h1>
         <div>
             <div class="table">
                 <b-card class="text-center list-names" v-for="listitem in this.resdata" :key="listitem.listname">
