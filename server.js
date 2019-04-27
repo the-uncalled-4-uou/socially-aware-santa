@@ -12,7 +12,8 @@ app.use(express.json());
 app.set("secretKey", "nodeRestApi");
 
 // Connect to Mongodb
-mongoose.connect("mongodb://localhost/socially-aware-santa", {
+let mongo_uri = process.env.MONGODB_URI || "mongodb://localhost/socially-aware-santa";
+mongoose.connect(mongo_uri, {
   useNewUrlParser: true
 });
 

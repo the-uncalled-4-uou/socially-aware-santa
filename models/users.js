@@ -8,6 +8,8 @@ const Schema = mongoose.Schema;
 const GiveSchema = new Schema({
     nameid: {
         type: String,
+        unique: true,
+        required: true,
         trim: true
     }
 })
@@ -15,6 +17,8 @@ const GiveSchema = new Schema({
 const RecieveSchema = new Schema({
     nameid: {
         type: String,
+        unique: true,
+        required: true,
         trim: true
     }
 })
@@ -22,6 +26,7 @@ const RecieveSchema = new Schema({
 const NameSchema = new Schema({
     personname: {
         type: String,
+        required: true,
         trim: true
     },
     giverules: [GiveSchema],
@@ -34,7 +39,11 @@ const ListsSchema = new Schema({
         type: String,
         trim: true
     },
-    names: [NameSchema]
+    names: [NameSchema],
+    matchedlist: {
+        type: Array,
+        trim: true
+    }
 })
 
 const UserSchema = new Schema({

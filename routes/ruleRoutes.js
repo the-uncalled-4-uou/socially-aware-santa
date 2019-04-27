@@ -13,7 +13,7 @@ module.exports = function (app) {
                     res.json({ status: "error", message: err.message, data: null });
                 } else {
                     db.Users.findById(decoded.id).then(function (dbres) {
-                        doc = dbres.lists.id(req.params.listid).names.id(req.params.nameid);
+                        doc = dbres.lists.id(req.params.listid).names.id(req.params.nameid).givrules;
                         res.json(doc);
                     });
                 }
@@ -30,12 +30,29 @@ module.exports = function (app) {
                 if (err) {
                     res.json({ status: "error", message: err.message, data: null });
                 } else {
-                    db.Users.findOneAndUpdate(
-                        { _id: decoded.id, "lists._id": req.params.listid, "lists.0.names._id": req.params.nameid},
-                        { $push: { "lists.0.names.0.giverules": { "nameid": req.body.nameid } }}, { multi: true }
-                    ).then(function (dbresult) {
-                        res.json(dbresult);
+                    db.Users.findOne({ _id: decoded.id }).then(dbres => {
+                        for (let i = 0; i < dbres.lists.length; i++) {
+                            if (req.params.listid === String(dbres.lists[i]._id)) {
+                                listindex = i;
+                            }
+                        }
+                        for (let i = 0; i < dbres.lists[listindex].names.length; i++) {
+                            if (req.params.nameid === String(dbres.lists[listindex].names[i]._id)) {
+                                nameindex = i;
+                            }
+                        }
+                        pushstring = "lists." + listindex + ".names." + nameindex + ".giverules";
+                        query = {};
+                        query[pushstring] = { "nameid": req.body.nameid };
+                        db.Users.findOneAndUpdate(
+                            { _id: decoded.id },
+                            { $push: query }, { multi: true, new: true }
+                        ).then(function (dbresult) {
+                            result = dbresult.lists.id(req.params.listid).names.id(req.params.nameid).giverules.pop();
+                            res.json(result);
+                        });
                     });
+
                 }
             }
         );
@@ -50,18 +67,40 @@ module.exports = function (app) {
                 if (err) {
                     res.json({ status: "error", message: err.message, data: null });
                 } else {
-                    db.Users.findOneAndUpdate(
-                        { _id: decoded.id, "lists._id": req.params.listid, "lists.0.names._id": req.params.nameid },
-                        { $pull: { "lists.0.names.0.giverules": { _id: req.params.nameid } } }, { multi: true }
-                    ).then(function (dbresult) {
-                        res.json(dbresult);
-                    });
+                    db.Users.findOne({ _id: decoded.id }).then(dbres => {
+                        for (let i = 0; i < dbres.lists.length; i++) {
+                            if (req.params.listid === String(dbres.lists[i]._id)) {
+                                listindex = i;
+                            }
+                        }
+                        for (let i = 0; i < dbres.lists[listindex].names.length; i++) {
+                            if (req.params.nameid === String(dbres.lists[listindex].names[i]._id)) {
+                                nameindex = i;
+                            }
+                        }
+                        for (let i = 0; i < dbres.lists[listindex].names[nameindex].giverules.length; i++) {
+                            if (req.params.giveruleid === String(dbres.lists[listindex].names[nameindex].giverules[i]._id)) {
+                                giveruleindex = i;
+                            }
+
+                        }
+                        deletedrecord = dbres.lists[listindex].names[nameindex].giverules[giveruleindex]
+                        pushstring = "lists." + listindex + ".names." + nameindex + ".giverules";
+                        query = {};
+                        query[pushstring] = { _id: req.params.giveruleid };
+                        db.Users.findOneAndUpdate(
+                            { _id: decoded.id},
+                            { $pull: query }, { multi: true, new: true }
+                        ).then(function (dbresult) {
+                            res.json(deletedrecord);
+                        });
+                    })
                 }
             }
         );
     });
 
-    app.get("/api/lists/:listid/names/:nameid/getrules", function (req, res) {
+    app.get("/api/lists/:listid/names/:nameid/receiverules", function (req, res) {
         jwt.verify(
             req.headers["x-access-token"],
             req.app.get("secretKey"),
@@ -70,7 +109,7 @@ module.exports = function (app) {
                     res.json({ status: "error", message: err.message, data: null });
                 } else {
                     db.Users.findById(decoded.id).then(function (dbres) {
-                        doc = dbres.lists.id(req.params.listid).names.id(req.params.nameid);
+                        doc = dbres.lists.id(req.params.listid).names.id(req.params.nameid).receiverules;
                         res.json(doc);
                     });
                 }
@@ -87,13 +126,27 @@ module.exports = function (app) {
                 if (err) {
                     res.json({ status: "error", message: err.message, data: null });
                 } else {
-                    db.Users.findOneAndUpdate(
-                        { _id: decoded.id, "lists._id": req.params.listid, "lists.0.names._id": req.params.nameid},
-                        { $push: { "lists.0.names.0.receiverules": { "nameid": req.body.nameid } }}, { multi: true, new: true }
-                    ).then(function (dbresult) {
-                        console.log(dbresult)
-                        test = dbresult.lists.id(req.params.listid).names.id(req.params.nameid).receiverules
-                        res.json(test);
+                    db.Users.findOne({ _id: decoded.id }).then(dbres => {
+                        for (let i = 0; i < dbres.lists.length; i++) {
+                            if (req.params.listid === String(dbres.lists[i]._id)) {
+                                listindex = i;
+                            }
+                        }
+                        for (let i = 0; i < dbres.lists[listindex].names.length; i++) {
+                            if (req.params.nameid === String(dbres.lists[listindex].names[i]._id)) {
+                                nameindex = i;
+                            }
+                        }
+                        pushstring = "lists." + listindex + ".names." + nameindex + ".receiverules";
+                        query = {};
+                        query[pushstring] = { "nameid": req.body.nameid };
+                        db.Users.findOneAndUpdate(
+                            { _id: decoded.id },
+                            { $push: query}, { multi: true, new: true}
+                        ).then(function (dbresult) {
+                            result = dbresult.lists.id(req.params.listid).names.id(req.params.nameid).receiverules.pop();
+                            res.json(result);
+                        });
                     });
                 }
             }
@@ -101,7 +154,7 @@ module.exports = function (app) {
     });
 
     // Delete route for deleting a list from the main page
-    app.delete("/api/lists/:listid/names/:nameid/getrules/:receiveruleid", function (req, res) {
+    app.delete("/api/lists/:listid/names/:nameid/receiverules/:receiveruleid", function (req, res) {
         jwt.verify(
             req.headers["x-access-token"],
             req.app.get("secretKey"),
@@ -109,12 +162,34 @@ module.exports = function (app) {
                 if (err) {
                     res.json({ status: "error", message: err.message, data: null });
                 } else {
-                    db.Users.findOneAndUpdate(
-                        { _id: decoded.id, "lists._id": req.params.listid, "lists.0.names._id": req.params.nameid },
-                        { $pull: { "lists.0.names.0.receiverules": { _id: req.params.receiveruleid } } }, { multi: true }
-                    ).then(function (dbresult) {
-                        res.json(dbresult);
-                    });
+                    db.Users.findOne({ _id: decoded.id }).then(dbres => {
+                        for (let i = 0; i < dbres.lists.length; i++) {
+                            if (req.params.listid === String(dbres.lists[i]._id)) {
+                                listindex = i;
+                            }
+                        }
+                        for (let i = 0; i < dbres.lists[listindex].names.length; i++) {
+                            if (req.params.nameid === String(dbres.lists[listindex].names[i]._id)) {
+                                nameindex = i;
+                            }
+                        }
+                        for (let i = 0; i < dbres.lists[listindex].names[nameindex].receiverules.length; i++) {
+                            if (req.params.receiveruleid === String(dbres.lists[listindex].names[nameindex].receiverules[i]._id)) {
+                                recieveruleindex = i;
+                            }
+
+                        }
+                        deletedrecord = dbres.lists[listindex].names[nameindex].receiverules[recieveruleindex]
+                        pushstring = "lists." + listindex + ".names." + nameindex + ".receiverules";
+                        query = {};
+                        query[pushstring] = { _id: req.params.receiveruleid };
+                        db.Users.findOneAndUpdate(
+                            { _id: decoded.id},
+                            { $pull: query }, { multi: true, new: true }
+                        ).then(function (dbresult) {
+                            res.json(deletedrecord);
+                        });
+                    })
                 }
             }
         );
