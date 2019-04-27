@@ -3,7 +3,7 @@
 
         <h1 class="title">Socially Aware Santa</h1>
         <div>
-            <div class="table">  
+            <div class="table">
                 <b-card class="text-center list-names" v-for="listitem in this.resdata" :key="listitem.listname">
                     <div @click="onListClick(listitem._id)">{{ listitem.listname }}</div>
                     <b-button class="float-right delete-btn" @click="deleteList(listitem._id)">✗ Delete</b-button></b-card>

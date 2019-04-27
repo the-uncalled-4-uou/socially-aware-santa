@@ -1,37 +1,44 @@
 <template>
-    <div class="container">
-        <b-card v-for="name in resdata" :key="resdata.indexOf(name)">Name: {{ name.personname }}
-            <b-button @click="removeName(name._id)">Delete</b-button>
-            <!-- Using value -->
-            <b-button v-b-toggle="name._id" class="m-1">Edit</b-button>
+    <div class="list-page">
 
-            <!-- Element to collapse -->
-            <b-collapse v-bind:id="name._id"> Give Rules:
-                <div v-for="giverule in name.giverules" :key="giveruledata.indexOf(giverule)"> {{
-                    friendlyname(giverule.nameid) }}
-                    <b-button @click="deleteGiveRule(name._id, giverule._id)">Delete</b-button>
+        <div>
+            <b-card v-for="name in resdata" :key="resdata.indexOf(name)">Name: {{ name.personname }}
+                <b-button @click="removeName(name._id)">Delete</b-button>
+                <!-- Using value -->
+                <b-button v-b-toggle="name._id" class="m-1">Edit</b-button>
+
+                <!-- Element to collapse -->
+                <b-collapse v-bind:id="name._id"> Give Rules:
+                    <div v-for="giverule in name.giverules" :key="giveruledata.indexOf(giverule)"> {{
+                        friendlyname(giverule.nameid) }}
+                        <b-button @click="deleteGiveRule(name._id, giverule._id)">Delete</b-button>
+                        <br>
+
+                    </div>
+                    <b-dropdown class="m-md-2" text="Add Rule">
+                        <b-dropdown-item @click="addGiveRule(name._id, dropname._id)" v-for="dropname in resdata"
+                                         :key="resdata.indexOf(dropname)">{{ dropname.personname }}
+                        </b-dropdown-item>
+                    </b-dropdown>
                     <br>
+                    <br>
+                    Recieve Rules:
+                    <div v-for="recieverule in name.receiverules" :key="recieveruledata.indexOf(recieverule)">
+                        {{ friendlyname(recieverule.nameid) }}
+                        <b-button @click="deleteReceiveRule(name._id, recieverule._id)">Delete</b-button>
+                    </div>
+                    <b-dropdown class="m-md-2" text="Add Rule">
+                        <b-dropdown-item  @click="addRecieverule(name._id, dropname._id)" v-for="dropname in resdata"
+                                          :key="resdata.indexOf(dropname)">{{ dropname.personname }}
+                        </b-dropdown-item>
+                    </b-dropdown>
+                </b-collapse>
+            </b-card>
 
-                </div>
-                <b-dropdown class="m-md-2" text="Add Rule">
-                    <b-dropdown-item @click="addGiveRule(name._id, dropname._id)" v-for="dropname in resdata"
-                                     :key="resdata.indexOf(dropname)">{{ dropname.personname }}
-                    </b-dropdown-item>
-                </b-dropdown>
-                <br>
-                <br>
-                Recieve Rules:
-                <div v-for="recieverule in name.receiverules" :key="recieveruledata.indexOf(recieverule)">
-                    {{ friendlyname(recieverule.nameid) }}
-                    <b-button @click="deleteReceiveRule(name._id, recieverule._id)">Delete</b-button>
-                </div>
-                <b-dropdown class="m-md-2" text="Add Rule">
-                    <b-dropdown-item  @click="addRecieverule(name._id, dropname._id)" v-for="dropname in resdata"
-                                     :key="resdata.indexOf(dropname)">{{ dropname.personname }}
-                    </b-dropdown-item>
-                </b-dropdown>
-            </b-collapse>
-        </b-card>
+
+        </div>
+
+
         <br>
         <b-form-input v-model="inputdata" id="input-large" size="lg"
                       placeholder="Add a Name to the list"></b-form-input>
@@ -222,4 +229,80 @@
 </script>
 
 <style>
+
+    .title {
+        margin-top: 5%;
+        margin-left: 1%;
+        transform: rotate(-10deg);
+        color: white;
+        z-index: 6;
+        font-size: 45px;
+    }
+    @media only screen and (max-width: 417px) {
+        .title {
+            font-size: 42px;
+        }
+    }
+    .list-names {
+        font-size: 25px;
+        vertical-align: middle;
+    }
+    .list-page {
+        z-index: 1;
+        min-width: 100vw;
+        min-height: 100vh;
+        background-color: #A93331;
+        font-family: 'Pacifico', cursive;
+    }
+    .table {
+        position: fixed;
+        top: 20%;
+    }
+    .logout-button {
+        position: fixed;
+        bottom: 5%;
+        /* text-align: center; */
+        width: 100%;
+    }
+    .log-div {
+        text-align: center;
+    }
+    .log-btn {
+        border-radius: 20px !important;
+        background-color: white !important;
+        border: none !important;
+        color: #F25C5C !important;
+    }
+    .log-btn:hover {
+        height: 41px !important;
+        border-radius: 25px !important;
+        margin-left: .5%;
+        margin-top: 0 !important;
+    }
+    .submit-btn {
+        margin-top: 1%;
+        margin-right: 1%;
+        border-radius: 20px !important;
+        background-color: white !important;
+        border: none !important;
+        color: #F25C5C !important;
+    }
+    .submit-btn:hover {
+        height: 41px !important;
+        border-radius: 25px !important;
+        margin-left: .5%;
+        margin-top: 3 !important;
+    }
+    .delete-btn {
+        border-radius: 20px !important;
+        background-color: white !important;
+        border: none !important;
+        color: #F25C5C !important;
+    }
+    .delete-btn:hover {
+        height: 41px !important;
+        border-radius: 25px !important;
+        margin-left: 1.5%;
+        margin-top: 0 !important;
+    }
 </style>
