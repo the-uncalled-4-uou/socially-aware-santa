@@ -8,8 +8,6 @@ const Schema = mongoose.Schema;
 const GiveSchema = new Schema({
     nameid: {
         type: String,
-        unique: true,
-        required: true,
         trim: true
     }
 })
@@ -17,8 +15,6 @@ const GiveSchema = new Schema({
 const RecieveSchema = new Schema({
     nameid: {
         type: String,
-        unique: true,
-        required: true,
         trim: true
     }
 })
