@@ -4,7 +4,7 @@
             <div class="table">
                 <div class="text-center list-names vertical-center float-none card" v-for="listitem in this.resdata" :key="listitem.listname">
                     <div class="card-body col-12">
-                        <div @click="onListClick(listitem._id)">{{ listitem.listname }} <b-button class="float-right delete-btn" @click="deleteList(listitem._id)">✗ Delete</b-button></div>
+                        <div @click="onListClick(listitem._id)" style="cursor: pointer;">{{ listitem.listname }} <b-button class="float-right delete-btn" @click="deleteList(listitem._id)">✗ Delete</b-button></div>
                     </div>
                 </div>
                 <b-form-input v-model="inputdata" id="input-large" size="lg" placeholder="Create a New List"></b-form-input>
